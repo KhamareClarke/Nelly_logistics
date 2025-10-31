@@ -171,17 +171,17 @@ export default function ReviewsPage() {
 
   return (
     <>
-      <Section className="relative bg-slate-900 py-16 md:py-20 overflow-hidden">
+      <Section className="relative bg-slate-900 py-12 sm:py-16 md:py-20 overflow-hidden" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bS0yIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yeiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
         <Container className="relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+          <div className="max-w-3xl mx-auto text-center px-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 tracking-tight">
               Customer
-              <span className="block text-sky-400 mt-2">
+              <span className="block text-sky-400 mt-1 sm:mt-2">
                 Reviews
               </span>
             </h1>
-            <p className="text-lg text-gray-300 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
               Tell us how we did. Leave a review here—or post it on Google to help others find a trusted courier.
             </p>
           </div>
@@ -190,29 +190,29 @@ export default function ReviewsPage() {
 
       <Section>
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto px-4 sm:px-0">
             <div>
-              <Card className="border-2 border-sky-500 mb-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                <CardContent className="p-8 md:p-10">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Leave a Review</h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
+              <Card className="border-2 border-sky-500 mb-4 sm:mb-6 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                <CardContent className="p-5 sm:p-6 md:p-8 lg:p-10">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Leave a Review</h2>
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Your Name *</Label>
-                      <Input id="name" name="name" required placeholder="John Smith" />
+                      <Label htmlFor="name" className="text-sm sm:text-base">Your Name *</Label>
+                      <Input id="name" name="name" required placeholder="John Smith" className="text-sm sm:text-base p-3 sm:p-4" />
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Rating *</Label>
-                      <div className="flex gap-2">
+                      <Label className="text-sm sm:text-base">Rating *</Label>
+                      <div className="flex gap-2 sm:gap-3">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
                             key={star}
                             type="button"
                             onClick={() => setRating(star)}
-                            className="focus:outline-none"
+                            className="focus:outline-none touch-target"
                           >
                             <Star
-                              className={`w-8 h-8 cursor-pointer transition-colors ${
+                              className={`w-6 h-6 sm:w-8 sm:h-8 cursor-pointer transition-colors ${
                                 star <= rating
                                   ? 'text-sky-500 fill-sky-500'
                                   : 'text-gray-300 hover:text-sky-300'
@@ -224,21 +224,22 @@ export default function ReviewsPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="comment">Your Review * (max 500 characters)</Label>
+                      <Label htmlFor="comment" className="text-sm sm:text-base">Your Review * (max 500 characters)</Label>
                       <Textarea
                         id="comment"
                         name="comment"
                         required
                         maxLength={500}
                         placeholder="Tell us about your experience with our service..."
-                        rows={6}
+                        rows={5}
+                        className="text-sm sm:text-base p-3 sm:p-4 resize-none"
                       />
                     </div>
 
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-sky-500 hover:bg-sky-600 text-white shadow-lg shadow-sky-500/20 hover:scale-105 transition-transform duration-200"
+                      className="w-full sm:w-auto sm:min-w-[180px] mx-auto sm:mx-0"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit Review →'}
@@ -248,13 +249,13 @@ export default function ReviewsPage() {
               </Card>
 
               <Card className="bg-blue-50 border-2 border-blue-200">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">Review us on Google</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                <CardContent className="p-4 sm:p-5 md:p-6">
+                  <h3 className="font-semibold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">Review us on Google</h3>
+                  <p className="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
                     Your Google review helps other businesses find a trusted courier service. Click below to leave your feedback on Google.
                   </p>
-                  <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                    <a href={process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || '#'} target="_blank" rel="noopener noreferrer">
+                  <Button asChild variant="secondary" className="w-full sm:w-auto sm:min-w-[180px] bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 mx-auto sm:mx-0">
+                    <a href={process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || '#'} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Review on Google
                     </a>
@@ -264,33 +265,33 @@ export default function ReviewsPage() {
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">What Our Customers Say</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 px-2 sm:px-0">What Our Customers Say</h2>
               {reviews.length === 0 ? (
                 <Card className="border-2 border-gray-200 shadow-lg">
-                  <CardContent className="p-10 text-center">
-                    <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-600 text-lg">No reviews yet. Be the first to leave a review!</p>
+                  <CardContent className="p-6 sm:p-8 md:p-10 text-center">
+                    <Star className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-3 sm:mb-4" />
+                    <p className="text-gray-600 text-base sm:text-lg">No reviews yet. Be the first to leave a review!</p>
                   </CardContent>
                 </Card>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {reviews.map((review) => (
-                    <Card key={review.id} className="group border-2 border-gray-200 hover:border-amber-500 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 bg-white">
-                      <CardContent className="p-8">
-                        <div className="flex items-center mb-3">
+                    <Card key={review.id} className="group border-2 border-gray-200 hover:border-amber-500 active:border-amber-600 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 bg-white">
+                      <CardContent className="p-5 sm:p-6 md:p-8">
+                        <div className="flex items-center mb-2 sm:mb-3 gap-1">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`w-5 h-5 ${
+                              className={`w-4 h-4 sm:w-5 sm:h-5 ${
                                 i < review.rating ? 'text-amber-500 fill-amber-500' : 'text-gray-300'
                               }`}
                             />
                           ))}
                         </div>
-                        <p className="text-gray-700 mb-3 leading-relaxed">&quot;{review.comment}&quot;</p>
-                        <div className="flex items-center justify-between">
-                          <p className="font-semibold text-gray-900">{review.name}</p>
-                          <p className="text-sm text-gray-500">
+                        <p className="text-gray-700 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base">&quot;{review.comment}&quot;</p>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+                          <p className="font-semibold text-gray-900 text-sm sm:text-base">{review.name}</p>
+                          <p className="text-xs sm:text-sm text-gray-500">
                             {new Date(review.created_at).toLocaleDateString('en-GB', {
                               day: 'numeric',
                               month: 'long',

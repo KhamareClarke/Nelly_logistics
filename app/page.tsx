@@ -52,7 +52,7 @@ import { type Review } from '@/lib/supabase';
 
 export default function HomePage() {
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [currentReview, setCurrentReview] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
   const [stats, setStats] = useState({
@@ -118,15 +118,14 @@ export default function HomePage() {
     };
   }, []);
 
-  // Auto-rotate testimonials
+  // Auto-rotate reviews carousel
   useEffect(() => {
-    if (reviews.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % reviews.length);
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [reviews]);
+    if (reviews.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentReview((prev) => (prev + 1) % reviews.length);
+    }, 4000); // Change review every 4 seconds
+    return () => clearInterval(interval);
+  }, [reviews.length]);
 
   // Auto-rotate features
   useEffect(() => {
@@ -147,29 +146,6 @@ export default function HomePage() {
     { icon: Radio, title: 'Telecoms', description: 'Rapid equipment and parts delivery for telecoms sector', price: 'From £12', popular: false },
   ];
 
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      company: 'Birmingham NHS Trust',
-      text: 'Nelly\'s Logistics has been our trusted partner for medical deliveries. Their reliability and professionalism are unmatched.',
-      rating: 5,
-      image: '/api/placeholder/60/60'
-    },
-    {
-      name: 'Michael Chen',
-      company: 'Chen & Associates Law',
-      text: 'Time-critical court filings are never a worry with Nelly\'s. They understand the urgency and deliver every time.',
-      rating: 5,
-      image: '/api/placeholder/60/60'
-    },
-    {
-      name: 'Emma Williams',
-      company: 'TechFlow Solutions',
-      text: 'Outstanding service! Same-day delivery across the UK with real-time tracking. Couldn\'t ask for more.',
-      rating: 5,
-      image: '/api/placeholder/60/60'
-    }
-  ];
 
   const industries = [
     { icon: HeartPulse, name: 'Healthcare', count: '500+ clients' },
@@ -190,9 +166,9 @@ export default function HomePage() {
   return (
     <>
       {/* Ultimate Hero Section */}
-      <Section className="relative bg-slate-900 py-16 md:py-24 overflow-hidden">
+      <section className="relative bg-slate-900" style={{ paddingTop: 'calc(6rem + env(safe-area-inset-top, 0px))', paddingBottom: '3rem' }}>
         {/* Animated Background */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bS0yIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yem0wIDR2Mmgydi0yaC0yeiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -200,48 +176,48 @@ export default function HomePage() {
         
         <Container className="relative z-10">
           <div className="max-w-6xl mx-auto text-center">
-            <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4">
-              <Badge className="bg-sky-500 hover:bg-sky-600 text-white border-0 px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base font-semibold shadow-2xl shadow-sky-500/30 animate-bounce cursor-pointer transition-all duration-300 hover:scale-110">
-                <Crown className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 inline animate-pulse" />
-                <span className="whitespace-nowrap">🏆 Award-Winning Courier Service</span>
+            <div className="flex flex-col items-center gap-3 sm:gap-4 mb-5 sm:mb-6 md:mb-8 px-4 pt-4 sm:pt-6 md:pt-8">
+              <Badge className="bg-sky-500 hover:bg-sky-600 text-white border-0 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 text-xs sm:text-sm md:text-base font-semibold shadow-2xl shadow-sky-500/30 animate-pulse cursor-pointer transition-all duration-300 hover:scale-110 touch-target">
+                <Crown className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 inline" />
+                <span className="whitespace-nowrap text-xs sm:text-sm md:text-base">🏆 Award-Winning Courier Service</span>
               </Badge>
               
               {/* Live Activity Ticker */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 text-white/90 text-xs sm:text-sm font-medium animate-pulse">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-ping"></div>
-                  <span className="whitespace-nowrap">Live: 247 deliveries in progress</span>
-                  <Bolt className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 text-amber-400 flex-shrink-0" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 text-white/90 text-xs sm:text-sm font-medium animate-pulse">
+                <div className="flex items-center gap-2 sm:gap-2.5">
+                  <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-400 rounded-full animate-ping"></div>
+                  <span className="whitespace-nowrap text-xs sm:text-sm">Live: 247 deliveries in progress</span>
+                  <Bolt className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1 sm:ml-2 text-amber-400 flex-shrink-0" />
                 </div>
               </div>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 leading-tight tracking-tight px-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-5 sm:mb-6 md:mb-8 leading-[1.1] tracking-tight px-4">
               <span className="block animate-fade-in-up">Lightning-Fast</span>
-              <span className="block text-sky-400 mt-1 sm:mt-2 animate-fade-in-up delay-300">
+              <span className="block text-sky-400 mt-2 sm:mt-3 md:mt-4 animate-fade-in-up delay-300">
                 Courier Solutions
               </span>
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto font-light animate-fade-in-up delay-500 px-4">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto font-light animate-fade-in-up delay-500 px-4">
               From Birmingham to <span className="text-sky-400 font-semibold">anywhere in the UK & Europe</span>. 
               <br className="hidden sm:block" />
               Book in <span className="text-amber-400 font-semibold">60 seconds</span>—tracked, insured, guaranteed.
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-8 sm:mb-10 md:mb-12 animate-fade-in-up delay-700 px-4">
-              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white text-base sm:text-lg px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-2xl shadow-amber-500/40 border-0 hover:scale-110 transition-all duration-300 font-bold w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center mb-8 sm:mb-10 md:mb-12 animate-fade-in-up delay-700 px-4">
+              <Button asChild size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-2xl shadow-amber-500/40 hover:shadow-amber-500/50 w-full sm:w-auto sm:min-w-[200px]">
                 <Link href="/contact" className="flex items-center justify-center">
-                  <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
-                  Get Instant Quote
-                  <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+                  <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                  <span>Get Instant Quote</span>
+                  <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-4 sm:py-6 md:py-8 bg-white/10 backdrop-blur-sm border-2 sm:border-3 border-sky-400/50 text-white hover:bg-sky-500/20 hover:border-sky-400/70 hover:scale-110 transition-all duration-300 font-bold w-full sm:w-auto">
+              <Button asChild size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50 shadow-lg shadow-white/10 hover:shadow-xl hover:shadow-white/20 w-full sm:w-auto sm:min-w-[180px]">
                 <a href="tel:+44XXXXXXXXXX" className="flex items-center justify-center">
-                  <Phone className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 animate-pulse" />
-                  Call Now: 24/7
+                  <Phone className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 animate-pulse flex-shrink-0" />
+                  <span>Call Now: 24/7</span>
                 </a>
               </Button>
             </div>
@@ -279,98 +255,98 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Animated Stats Section */}
-      <Section className="bg-sky-600 text-white py-12 sm:py-14 md:py-16">
+      <Section className="bg-sky-600 text-white py-10 sm:py-12 md:py-14 lg:py-16">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
-            <div className="group hover:scale-110 transition-transform duration-300 px-2">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-1 sm:mb-2 text-white">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-center px-2 sm:px-4">
+            <div className="group hover:scale-110 active:scale-105 transition-transform duration-300 px-1 sm:px-2 py-2 sm:py-3 rounded-lg hover:bg-sky-700/30">
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black mb-1 sm:mb-2 text-white leading-none">
                 {stats.deliveries.toLocaleString()}+
               </div>
-              <div className="text-sm sm:text-base md:text-lg font-semibold text-sky-100">Deliveries Completed</div>
-              <div className="text-xs sm:text-sm text-sky-200">This year alone</div>
+              <div className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-sky-100 mt-1 sm:mt-2">Deliveries Completed</div>
+              <div className="text-[10px] sm:text-xs md:text-sm text-sky-200 mt-0.5 sm:mt-1">This year alone</div>
             </div>
-            <div className="group hover:scale-110 transition-transform duration-300 px-2">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-1 sm:mb-2 text-white">
+            <div className="group hover:scale-110 active:scale-105 transition-transform duration-300 px-1 sm:px-2 py-2 sm:py-3 rounded-lg hover:bg-sky-700/30">
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black mb-1 sm:mb-2 text-white leading-none">
                 {stats.clients.toLocaleString()}+
               </div>
-              <div className="text-sm sm:text-base md:text-lg font-semibold text-sky-100">Happy Clients</div>
-              <div className="text-xs sm:text-sm text-sky-200">Across all sectors</div>
+              <div className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-sky-100 mt-1 sm:mt-2">Happy Clients</div>
+              <div className="text-[10px] sm:text-xs md:text-sm text-sky-200 mt-0.5 sm:mt-1">Across all sectors</div>
             </div>
-            <div className="group hover:scale-110 transition-transform duration-300 px-2">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-1 sm:mb-2 text-white">
+            <div className="group hover:scale-110 active:scale-105 transition-transform duration-300 px-1 sm:px-2 py-2 sm:py-3 rounded-lg hover:bg-sky-700/30">
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black mb-1 sm:mb-2 text-white leading-none">
                 {stats.coverage}%
               </div>
-              <div className="text-sm sm:text-base md:text-lg font-semibold text-sky-100">UK Coverage</div>
-              <div className="text-xs sm:text-sm text-sky-200">Plus Europe</div>
+              <div className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-sky-100 mt-1 sm:mt-2">UK Coverage</div>
+              <div className="text-[10px] sm:text-xs md:text-sm text-sky-200 mt-0.5 sm:mt-1">Plus Europe</div>
             </div>
-            <div className="group hover:scale-110 transition-transform duration-300 px-2">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-1 sm:mb-2 text-white">
+            <div className="group hover:scale-110 active:scale-105 transition-transform duration-300 px-1 sm:px-2 py-2 sm:py-3 rounded-lg hover:bg-sky-700/30">
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black mb-1 sm:mb-2 text-white leading-none">
                 {stats.satisfaction}%
               </div>
-              <div className="text-sm sm:text-base md:text-lg font-semibold text-sky-100">Client Satisfaction</div>
-              <div className="text-xs sm:text-sm text-sky-200">5-star rated</div>
+              <div className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-sky-100 mt-1 sm:mt-2">Client Satisfaction</div>
+              <div className="text-[10px] sm:text-xs md:text-sm text-sky-200 mt-0.5 sm:mt-1">5-star rated</div>
             </div>
           </div>
         </Container>
       </Section>
 
       {/* Enhanced Services Section */}
-      <Section className="bg-gray-50 py-12">
+      <Section className="bg-gray-50 py-10 sm:py-12 md:py-16">
         <Container>
-          <div className="text-center mb-16">
-            <Badge className="mb-6 bg-sky-500 text-white px-6 py-2 text-sm font-semibold">
-              <Package className="w-4 h-4 mr-2" />
+          <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
+            <Badge className="mb-4 sm:mb-6 bg-sky-500 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm font-semibold">
+              <Package className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
               Premium Services
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 sm:mb-6 tracking-tight px-2">
               Lightning-Fast <span className="text-sky-600">Delivery Solutions</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               From urgent same-day delivery to specialized logistics—we've got every business need covered
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-10 sm:mb-12 md:mb-16 px-4">
             {services.slice(0, 4).map((service, index) => {
               const isEven = index % 2 === 0;
               const colorScheme = isEven ? 'amber' : 'sky';
               return (
                 <Card
                   key={index}
-                  className={`group relative border-2 border-gray-200 hover:border-${colorScheme}-500 hover:shadow-2xl hover:shadow-${colorScheme}-500/20 transition-all duration-500 overflow-hidden bg-white hover:-translate-y-4 hover:rotate-1`}
+                  className={`group relative border-2 border-gray-200 hover:border-${colorScheme}-500 hover:shadow-2xl hover:shadow-${colorScheme}-500/20 transition-all duration-500 bg-white hover:-translate-y-4 hover:rotate-1 overflow-visible`}
                 >
                   {service.popular && (
-                    <div className="absolute -top-3 -right-3 z-20">
-                      <Badge className="bg-amber-500 text-white px-3 py-1 text-xs font-bold shadow-lg">
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-[60] pointer-events-none">
+                      <Badge className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs font-bold shadow-2xl shadow-amber-500/60 border-2 border-white/80 whitespace-nowrap">
                         🔥 POPULAR
                       </Badge>
                     </div>
                   )}
                   
-                  <div className={`absolute top-0 right-0 w-40 h-40 bg-${colorScheme}-500/10 rounded-bl-full transform translate-x-20 -translate-y-20 group-hover:scale-150 transition-transform duration-700`}></div>
+                  <div className={`absolute top-0 right-0 w-40 h-40 bg-${colorScheme}-500/10 rounded-bl-full transform translate-x-20 -translate-y-20 group-hover:scale-150 transition-transform duration-700 z-0`}></div>
                   
-                  <CardContent className="p-8 relative z-10">
-                    <div className={`w-18 h-18 bg-${colorScheme}-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-2xl shadow-${colorScheme}-500/30`}>
-                      <service.icon className="w-10 h-10 text-white" />
+                  <CardContent className="p-5 sm:p-6 md:p-8 relative z-10 overflow-visible">
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 bg-${colorScheme}-500 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-2xl shadow-${colorScheme}-500/30`}>
+                      <service.icon className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
                     </div>
                     
-                    <h3 className={`text-2xl font-bold text-gray-900 group-hover:text-${colorScheme}-600 mb-4 transition-all duration-300`}>
+                    <h3 className={`text-lg sm:text-xl md:text-2xl font-bold text-gray-900 group-hover:text-${colorScheme}-600 mb-3 sm:mb-4 transition-all duration-300`}>
                       {service.title}
                     </h3>
                     
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
                       {service.description}
                     </p>
                     
-                    <div className="flex items-center justify-between">
-                      <span className={`text-2xl font-black text-${colorScheme}-600`}>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                      <span className={`text-xl sm:text-2xl font-black text-${colorScheme}-600`}>
                         {service.price}
                       </span>
-                      <Button size="sm" className={`bg-${colorScheme}-500 hover:bg-${colorScheme}-600 text-white shadow-lg hover:scale-110 transition-all duration-300`}>
-                        <Link href="/contact" className="flex items-center">
+                      <Button size="sm" className={`${isEven ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700' : 'bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700'} text-white shadow-lg w-full sm:w-auto sm:min-w-[120px]`}>
+                        <Link href="/contact" className="flex items-center justify-center">
                           Get Quote
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
@@ -382,12 +358,12 @@ export default function HomePage() {
             })}
           </div>
 
-          <div className="text-center">
-            <Button asChild size="lg" className="bg-sky-500 hover:bg-sky-600 text-white text-lg px-12 py-6 shadow-2xl shadow-sky-500/30 hover:scale-110 transition-all duration-300 font-bold">
-              <Link href="/services">
-                <Package className="mr-3 h-6 w-6" />
+          <div className="text-center px-4">
+            <Button asChild size="lg" className="w-full sm:w-auto sm:min-w-[220px] max-w-sm sm:max-w-none mx-auto">
+              <Link href="/services" className="flex items-center justify-center">
+                <Package className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                 View All Services
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
               </Link>
             </Button>
           </div>
@@ -398,54 +374,54 @@ export default function HomePage() {
       <Section className="bg-white py-20 border-t border-gray-200">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-amber-500 text-white px-6 py-2 text-sm font-semibold">
-                <Calculator className="w-4 h-4 mr-2" />
+            <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
+              <Badge className="mb-4 sm:mb-6 bg-amber-500 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm font-semibold">
+                <Calculator className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                 Instant Pricing
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 sm:mb-6 tracking-tight px-2">
                 Get Your <span className="text-amber-500">Instant Quote</span>
               </h2>
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 No hidden fees, no surprises. See exactly what your delivery will cost in seconds.
               </p>
             </div>
 
-            <Card className="border-2 border-gray-200 shadow-2xl hover:shadow-3xl transition-all duration-500 bg-white">
-              <CardContent className="p-8 md:p-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <Card className="border-2 border-gray-200 shadow-2xl hover:shadow-3xl transition-all duration-500 bg-white mx-4 sm:mx-0">
+              <CardContent className="p-5 sm:p-6 md:p-8 lg:p-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8">
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-900 mb-3">Service Type</label>
-                      <div className="grid grid-cols-2 gap-3">
-                        <button className="p-4 border-2 border-sky-500 bg-sky-50 text-sky-700 rounded-xl font-semibold hover:bg-sky-100 transition-colors">
-                          <Zap className="w-5 h-5 mx-auto mb-2" />
+                      <label className="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-3">Service Type</label>
+                      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                        <button className="p-3 sm:p-4 border-2 border-sky-500 bg-sky-50 text-sky-700 rounded-lg sm:rounded-xl font-semibold hover:bg-sky-100 active:bg-sky-200 transition-colors touch-target text-xs sm:text-sm">
+                          <Zap className="w-4 h-4 sm:w-5 sm:h-5 mx-auto mb-1 sm:mb-2" />
                           Same Day
                         </button>
-                        <button className="p-4 border-2 border-gray-200 text-gray-600 rounded-xl font-semibold hover:border-sky-500 hover:text-sky-700 transition-colors">
-                          <Clock className="w-5 h-5 mx-auto mb-2" />
+                        <button className="p-3 sm:p-4 border-2 border-gray-200 text-gray-600 rounded-lg sm:rounded-xl font-semibold hover:border-sky-500 hover:text-sky-700 active:bg-gray-50 transition-colors touch-target text-xs sm:text-sm">
+                          <Clock className="w-4 h-4 sm:w-5 sm:h-5 mx-auto mb-1 sm:mb-2" />
                           Next Day
                         </button>
                       </div>
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-bold text-gray-900 mb-3">Distance</label>
+                      <label className="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-3">Distance</label>
                       <div className="relative">
                         <input 
                           type="text" 
                           placeholder="From postcode" 
-                          className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-sky-500 focus:outline-none transition-colors"
+                          className="w-full p-3 sm:p-4 text-sm sm:text-base border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-sky-500 focus:outline-none transition-colors"
                         />
-                        <MapPin className="absolute right-4 top-4 w-5 h-5 text-gray-400" />
+                        <MapPin className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                       </div>
-                      <div className="relative mt-3">
+                      <div className="relative mt-2 sm:mt-3">
                         <input 
                           type="text" 
                           placeholder="To postcode" 
-                          className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-sky-500 focus:outline-none transition-colors"
+                          className="w-full p-3 sm:p-4 text-sm sm:text-base border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-sky-500 focus:outline-none transition-colors"
                         />
-                        <MapPin className="absolute right-4 top-4 w-5 h-5 text-gray-400" />
+                        <MapPin className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                       </div>
                     </div>
                   </div>
@@ -488,12 +464,12 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="flex-1 bg-sky-500 hover:bg-sky-600 text-white text-lg py-6 shadow-xl hover:scale-105 transition-all duration-300 font-bold">
-                    <Calendar className="mr-3 h-6 w-6" />
+                  <Button size="lg" className="w-full sm:flex-1 sm:min-w-0">
+                    <Calendar className="mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                     Book This Delivery
                   </Button>
-                  <Button variant="outline" className="flex-1 border-2 border-sky-500 text-sky-600 hover:bg-sky-50 text-lg py-6 hover:scale-105 transition-all duration-300 font-bold">
-                    <FileText className="mr-3 h-6 w-6" />
+                  <Button variant="outline" size="lg" className="w-full sm:flex-1 sm:min-w-0">
+                    <FileText className="mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                     Get Detailed Quote
                   </Button>
                 </div>
@@ -532,7 +508,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center">
-            <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white text-lg px-12 py-6 shadow-2xl shadow-amber-500/30 hover:scale-110 transition-all duration-300 font-bold">
+            <Button asChild size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700">
               <Link href="/about">
                 <Users className="mr-3 h-6 w-6" />
                 Learn About Our Expertise
@@ -666,26 +642,26 @@ export default function HomePage() {
       </Section>
 
       {/* Ultimate Trust Features */}
-      <Section className="relative bg-sky-50 py-20 overflow-hidden">
+      <Section className="relative bg-sky-50 py-12 sm:py-16 md:py-20 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-sky-500 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         <Container className="relative z-10">
-          <div className="text-center mb-16">
-            <Badge className="mb-6 bg-sky-500 text-white px-6 py-2 text-sm font-semibold">
-              <Award className="w-4 h-4 mr-2" />
+          <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
+            <Badge className="mb-4 sm:mb-6 bg-sky-500 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm font-semibold">
+              <Award className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
               Why We're Different
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 sm:mb-6 tracking-tight px-2">
               The <span className="text-sky-600">Ultimate</span> Courier Experience
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               We don't just deliver packages—we deliver peace of mind with every shipment
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-0">
             {trustFeatures.map((feature, index) => {
               const colors = ['sky', 'amber', 'sky', 'amber'];
               const colorScheme = colors[index % colors.length];
@@ -808,93 +784,116 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Ultimate Testimonials Section */}
-      <Section className="bg-gray-900 py-20 text-white">
+      {/* Customer Reviews Carousel Section */}
+      <Section className="bg-gray-900 py-12 sm:py-16 md:py-20 text-white">
         <Container>
-          <div className="text-center mb-16">
-            <Badge className="mb-6 bg-amber-500 text-white px-6 py-2 text-sm font-semibold">
-              <Quote className="w-4 h-4 mr-2" />
-              Client Success Stories
+          <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
+            <Badge className="mb-4 sm:mb-6 bg-amber-500 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm font-semibold">
+              <Quote className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+              Customer Reviews
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 sm:mb-4 tracking-tight">
               <span className="text-amber-400">Trusted</span> by Industry Leaders
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Don't just take our word for it—hear from the businesses who rely on us every day
             </p>
           </div>
 
-          {/* Featured Testimonial Carousel */}
-          {testimonials.length > 0 && (
-            <div className="max-w-5xl mx-auto mb-16">
-              <Card className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl">
-                <CardContent className="p-12 text-center">
-                  <div className="flex justify-center mb-8">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-8 h-8 text-amber-400 fill-amber-400 mx-1" />
+          {/* Single Reviews Carousel */}
+          {reviews.length > 0 ? (
+            <>
+              <div className="relative w-full max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-0">
+                <div className="relative overflow-hidden rounded-xl">
+                  <div 
+                    className="flex transition-transform duration-600 ease-in-out"
+                    style={{ transform: `translateX(-${currentReview * 100}%)` }}
+                  >
+                    {reviews.map((review, index) => {
+                      // Generate avatar initial
+                      const initial = review.name.charAt(0).toUpperCase();
+                      
+                      return (
+                        <div key={review.id} className="w-full flex-shrink-0 px-2 sm:px-3">
+                          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700/50 shadow-xl">
+                            <CardContent className="p-6 sm:p-8 md:p-10 text-center">
+                              {/* Star Rating */}
+                              <div className="flex items-center justify-center mb-4 sm:mb-6 gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className={`w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${
+                                      i < review.rating 
+                                        ? 'text-amber-400 fill-amber-400' 
+                                        : 'text-gray-600 fill-gray-600'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              
+                              {/* Review Text */}
+                              <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-5 sm:mb-6 md:mb-8 leading-relaxed italic font-light text-center">
+                                "{review.comment}"
+                              </p>
+                              
+                              {/* Reviewer Info */}
+                              <div className="flex items-center justify-center gap-3 sm:gap-4 pt-4 border-t border-gray-700/50">
+                                {/* Avatar */}
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-sky-500 flex items-center justify-center flex-shrink-0">
+                                  <span className="text-white text-lg sm:text-xl md:text-2xl font-bold">{initial}</span>
+                                </div>
+                                
+                                {/* Name and Company */}
+                                <div className="text-center">
+                                  <p className="font-bold text-white text-base sm:text-lg md:text-xl mb-1">
+                                    {review.name}
+                                  </p>
+                                  <p className="text-sky-400 text-sm sm:text-base">
+                                    Verified Customer
+                                  </p>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                
+                {/* Carousel Indicators - Tiny Subtle Dots */}
+                {reviews.length > 1 && (
+                  <div className="flex justify-center items-center gap-1 mt-4 sm:mt-6">
+                    {reviews.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentReview(index)}
+                        className={`rounded-full transition-all duration-200 min-w-[6px] min-h-[6px] ${
+                          index === currentReview
+                            ? 'w-[6px] h-[6px] bg-sky-400 shadow-sm shadow-sky-400/50'
+                            : 'w-[5px] h-[5px] bg-gray-600/50 hover:bg-gray-500/70 active:bg-gray-400'
+                        }`}
+                        aria-label={`Go to review ${index + 1}`}
+                      />
                     ))}
                   </div>
-                  
-                  <blockquote className="text-3xl md:text-4xl font-light text-white mb-8 leading-relaxed italic">
-                    "{testimonials[currentTestimonial]?.text}"
-                  </blockquote>
-                  
-                  <div className="flex items-center justify-center gap-4">
-                    <div className="w-16 h-16 bg-sky-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-xl">
-                        {testimonials[currentTestimonial]?.name.charAt(0)}
-                      </span>
-                    </div>
-                    <div className="text-left">
-                      <p className="text-xl font-bold text-white">{testimonials[currentTestimonial]?.name}</p>
-                      <p className="text-sky-400">{testimonials[currentTestimonial]?.company}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          {/* Reviews Grid */}
-          {reviews.length > 0 && (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                {reviews.slice(0, 3).map((review, index) => (
-                  <Card
-                    key={review.id}
-                    className="group bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:shadow-2xl transition-all duration-500 hover:-translate-y-4"
-                  >
-                    <CardContent className="p-8">
-                      <div className="flex items-center mb-6 gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-5 h-5 transition-all duration-300 ${
-                              i < review.rating ? 'text-amber-400 fill-amber-400' : 'text-gray-500'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <p className="text-gray-200 mb-6 leading-relaxed italic">"{review.comment}"</p>
-                      <div className="pt-4 border-t border-white/20">
-                        <p className="font-bold text-white">{review.name}</p>
-                        <p className="text-sm text-sky-400 mt-1">Verified Customer</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                )}
               </div>
 
-              <div className="text-center">
-                <Button asChild size="lg" className="bg-sky-500 hover:bg-sky-600 text-white text-lg px-12 py-6 shadow-2xl shadow-sky-500/30 hover:scale-110 transition-all duration-300 font-bold">
+              <div className="text-center px-4">
+                <Button asChild size="lg">
                   <Link href="/reviews">
-                    <MessageCircle className="mr-3 h-6 w-6" />
+                    <MessageCircle className="mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                     Read All Reviews
-                    <ArrowRight className="ml-3 h-6 w-6" />
+                    <ArrowRight className="ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Link>
                 </Button>
               </div>
             </>
+          ) : (
+            <div className="text-center py-12 sm:py-16">
+              <p className="text-gray-400 text-base sm:text-lg">No reviews yet. Be the first to leave a review!</p>
+            </div>
           )}
         </Container>
       </Section>
@@ -930,17 +929,17 @@ export default function HomePage() {
             </p>
             
             {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-8 justify-center mb-16">
-              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white text-2xl px-16 py-10 shadow-2xl shadow-amber-500/40 border-0 hover:scale-110 transition-all duration-300 font-black rounded-2xl">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-center items-center mb-12 sm:mb-16 px-4">
+              <Button asChild size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 w-full sm:w-auto sm:min-w-[220px]">
                 <Link href="/contact">
-                  <Calendar className="mr-4 h-8 w-8" />
+                  <Calendar className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
                   Get Instant Quote
-                  <ArrowRight className="ml-4 h-8 w-8" />
+                  <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6" />
                 </Link>
               </Button>
-              <Button asChild size="lg" className="text-2xl px-16 py-10 bg-white/10 backdrop-blur-sm border-3 border-sky-400/50 text-white hover:bg-sky-500/20 hover:border-sky-400/70 hover:scale-110 transition-all duration-300 font-black rounded-2xl">
+              <Button asChild size="lg" className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50 w-full sm:w-auto sm:min-w-[200px]">
                 <a href="tel:+44XXXXXXXXXX">
-                  <Phone className="mr-4 h-8 w-8 animate-pulse" />
+                  <Phone className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 animate-pulse" />
                   Call 24/7 Hotline
                 </a>
               </Button>

@@ -30,28 +30,28 @@ export function Footer() {
             <div className="mb-4">
               <Logo variant="footer" />
             </div>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-xs sm:text-sm text-gray-400 mb-4 leading-relaxed">
               Reliable 24/7 same-day and next-day courier service across the UK and Europe. Based in Birmingham, serving nationwide.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-sky-400 hover:scale-110 transition-all duration-300" aria-label="Facebook">
-                <Facebook className="w-5 h-5" />
+              <a href="#" className="hover:text-sky-400 hover:scale-110 active:scale-95 transition-all duration-300 touch-target" aria-label="Facebook">
+                <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
-              <a href="#" className="hover:text-sky-400 hover:scale-110 transition-all duration-300" aria-label="Twitter">
-                <Twitter className="w-5 h-5" />
+              <a href="#" className="hover:text-sky-400 hover:scale-110 active:scale-95 transition-all duration-300 touch-target" aria-label="Twitter">
+                <Twitter className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
-              <a href="#" className="hover:text-sky-400 hover:scale-110 transition-all duration-300" aria-label="LinkedIn">
-                <Linkedin className="w-5 h-5" />
+              <a href="#" className="hover:text-sky-400 hover:scale-110 active:scale-95 transition-all duration-300 touch-target" aria-label="LinkedIn">
+                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
             </div>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4">Quick Links</h3>
+            <ul className="space-y-2 sm:space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm hover:text-sky-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm hover:text-sky-400 transition-colors block py-1 touch-target">
                     {link.label}
                   </Link>
                 </li>
@@ -60,18 +60,18 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Our Services</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4">Our Services</h3>
+            <ul className="space-y-2 sm:space-y-2.5">
               {services.map((service) => (
                 <li key={service}>
-                  <span className="text-sm hover:text-sky-400 transition-colors cursor-pointer">{service}</span>
+                  <span className="text-xs sm:text-sm hover:text-sky-400 transition-colors cursor-pointer block py-1 touch-target">{service}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Contact Us</h3>
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4">Contact Us</h3>
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" />

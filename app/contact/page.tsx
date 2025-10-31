@@ -209,8 +209,8 @@ export default function ContactPage() {
                   <p className="text-gray-700 text-sm leading-relaxed mb-4">
                     For urgent same-day or time-critical deliveries, please call us directly for the fastest service.
                   </p>
-                  <Button asChild className="w-full bg-amber-600 hover:bg-amber-700">
-                    <a href="tel:+44XXXXXXXXXX">
+                  <Button asChild className="w-full sm:w-auto sm:min-w-[180px] bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 mx-auto sm:mx-0">
+                    <a href="tel:+44XXXXXXXXXX" className="flex items-center justify-center">
                       <Phone className="mr-2 h-4 w-4" />
                       Call Now
                     </a>

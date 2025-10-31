@@ -14,8 +14,8 @@ export function Logo({ variant = 'header', className = '' }: LogoProps) {
       {/* Logo Image - Full logo with icon and text */}
       <div className={`relative transition-all duration-300 ${
         isHeader 
-          ? 'w-48 h-12 sm:w-56 sm:h-14 md:w-64 md:h-16 group-hover:scale-105' 
-          : 'w-40 h-10 sm:w-48 sm:h-12'
+          ? 'w-36 h-9 sm:w-48 sm:h-12 md:w-56 md:h-14 lg:w-64 lg:h-16 group-hover:scale-105' 
+          : 'w-32 h-8 sm:w-40 sm:h-10 md:w-48 md:h-12'
       }`}>
         <Image
           src="/logo.svg"
