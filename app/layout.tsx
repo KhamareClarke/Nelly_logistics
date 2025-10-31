@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import React from 'react';
-import { Inter, Roboto } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
@@ -44,14 +44,7 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
   preload: true,
-});
-
-const roboto = Roboto({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-roboto',
-  preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 // App configuration
@@ -179,7 +172,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${roboto.variable} scroll-smooth`}>
+    <html lang="en" className={`${inter.variable} scroll-smooth`}>
       <head>
         <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
